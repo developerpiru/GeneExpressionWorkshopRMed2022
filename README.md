@@ -8,7 +8,6 @@ This repo contains materials for the Gene Expression Analysis in R workshop for 
 
 Before attending the workshop, please clone this repo and make sure you have a working installation of R with the following packages:
 ```
-#
 # From Cran
 install.packages(ggplot2)
 install.packages(RColorBrewer)
