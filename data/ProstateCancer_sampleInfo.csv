@@ -1,0 +1,11 @@
+sample,condition,replicate,mutationCount,diagnosisAge,psa,stage,tmb
+DMSO_24h.1,DMSO,Replicate-1,43,65,34,pT4,1.3
+DMSO_24h.2,DMSO,Replicate-2,154,53,8.45,pT4,6.5
+DMSO_24h.3,DMSO,Replicate-3,32,61,53,pT4,0.8
+DMSO_24h.4,DMSO,Replicate-4,136,52,13,pT4,4.7
+DMSO_24h.5,DMSO,Replicate-5,69,62,9.01,pT4,2.5
+SP2509_24h.1,SP2509,Replicate-1,43,65,34,pT4,1.3
+SP2509_24h.2,SP2509,Replicate-2,154,53,8.45,pT4,6.5
+SP2509_24h.3,SP2509,Replicate-3,32,61,53,pT4,0.8
+SP2509_24h.4,SP2509,Replicate-4,136,52,13,pT4,4.7
+SP2509_24h.5,SP2509,Replicate-5,69,62,9.01,pT4,2.5
