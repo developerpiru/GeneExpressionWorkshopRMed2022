@@ -41,7 +41,7 @@ We also require some sample metadata (also referred to in DESeq2 as ```colData``
 5. tmb: tumor mutational burden (nonsynonymous mutations only)
 
 
-## Outline of steps
+## Goals and outline of steps
 
 The goals of this workshop are as follows:
 
