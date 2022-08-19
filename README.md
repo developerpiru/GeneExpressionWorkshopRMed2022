@@ -1,6 +1,6 @@
 # GeneExpressionWorkshopRMed2022
 
-This repo contains materials for the Gene Expression Analysis in R workshop for the R/Medicine Conference 2022.
+This repo contains materials for the [Gene Expression Analysis in R workshop](https://rmedicineconference2022.sched.com/event/15rKk?iframe=no) for the R/Medicine Conference 2022.
 
 ## Authors
 - Piru Perampalam
