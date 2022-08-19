@@ -5,8 +5,8 @@ Gene expression in R workshop for RMed 2022 conference
 This repo contains materials for the Gene Expression Analysis in R workshop for the R/Medicine Conference 2022.
 
 ## Authors
-Piru Perampalam
-Siavash Ghaffari
+- Piru Perampalam
+- Siavash Ghaffari
 
 ## Setup
 
