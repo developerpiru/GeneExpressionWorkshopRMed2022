@@ -4,6 +4,10 @@ Gene expression in R workshop for RMed 2022 conference
 ## Preamble
 This repo contains materials for the Gene Expression Analysis in R workshop for the R/Medicine Conference 2022.
 
+## Authors
+Piru Perampalam
+Siavash Ghaffari
+
 ## Setup
 
 Before attending the workshop, please clone this repo and make sure you have a working installation of R with the following packages:
@@ -57,3 +61,7 @@ The goals of this workshop are as follows:
 10. Look at some individual gene expression data in relation to clinical attributes
 
 After completing this workshop, you should feel comfortable analyzing bulk RNA-seq data in R!
+
+## Additional notes
+
+We left out FASTQ alignments in this workshop due to the time it would take to perform this step. This is usually the most time consuming and resource intensive (CPU and memory) step in bulk RNA-seq analysis. If you are interested in learning about this step, please see a tutorial I have previously written: [NGS alignments using STAR](https://github.com/developerpiru/seq-alignment-tutorial)
