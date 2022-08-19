@@ -402,8 +402,7 @@ p3 <- ggplot(gene_counts, aes(x = condition, y = count)) +
     theme_classic()
 p3
 
-
-
+# Save to PDF
 pdf("output/figures/normalized_expression_plots.pdf", width=5, height=5)
 p1
 p2
