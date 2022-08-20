@@ -11,19 +11,19 @@ This repo contains materials for the [Gene Expression Analysis in R workshop](ht
 Before attending the workshop, please clone this repo and make sure you have a working installation of R with the following packages:
 ```
 # From Cran
-install.packages(ggplot2)
-install.packages(RColorBrewer)
-install.packages(circlize)
+install.packages("ggplot2")
+install.packages("RColorBrewer")
+install.packages("circlize")
 
 # From Bioconductor (requires BiocManager)
-BiocManager::install(DESeq2)
-BiocManager::install(apeglm)
-BiocManager::install(AnnotationDbi)
-BiocManager::install(org.Hs.eg.db)
+BiocManager::install("DESeq2")
+BiocManager::install("apeglm")
+BiocManager::install("AnnotationDbi")
+BiocManager::install("org.Hs.eg.db")
 
 # From GitHub (requires devtools)
-devtools::install_github(ComplexHeatmap)
-devtools::install_github(EnhancedVolcano)
+devtools::install_github("jokergoo/ComplexHeatmap")
+devtools::install_github("kevinblighe/EnhancedVolcano")
 ```
 
 ## Introduction
