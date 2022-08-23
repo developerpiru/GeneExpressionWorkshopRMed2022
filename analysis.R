@@ -1,13 +1,16 @@
 # Load required libraries
-library(DESeq2)
-library(apeglm)
+#Cran
 library(ggplot2)
-library(AnnotationDbi)
-library(org.Hs.eg.db)
-library(ComplexHeatmap)
-library(EnhancedVolcano)
 library(RColorBrewer)
 library(circlize)
+# Bioconductor
+library(DESeq2)
+library(apeglm)
+library(AnnotationDbi)
+library(org.Hs.eg.db)
+#Github
+library(ComplexHeatmap)
+library(EnhancedVolcano)
 # library(ReactomePA)
 
 # Set working directory (make sure to change this to where you cloned the repo)
@@ -308,52 +311,6 @@ volcano_plot
 pdf("output/figures/volcano_plot.pdf", width=8, height=8)
 volcano_plot
 dev.off()
-
-
-
-
-### Perform Pathway Enrichment Analysis ###
-
-# Before performing any enrichment analysis, we need to filter our results even further to select genes of interest.
-# We can do this by subsetting genes that have a specific LFC and p value
-# Let's subset genes that have a LFC greater than 2.0 and an adjusted p value smaller than 0.05.
-filtered_resFDR <- as.data.frame(resFDR)
-
-# Let's remove any genes that have ```NA``` for adjusted p value
-filtered_resFDR <- na.omit(filtered_resFDR, cols = c("padj"))
-
-# Subset the gene table
-filtered_resFDR <- subset(filtered_resFDR,
-                          log2FoldChange >= 2 &
-                              padj < 0.05
-                          )
-head(filtered_resFDR)
-
-# For ```enrichplot``` package requires gene names to be in ENTREZID format, so we need to convert from ENSEMBL to ENTREZID
-filtered_resFDR$EntrezID <- mapIds(org.Hs.eg.db,keys=rownames(filtered_resFDR),column="ENTREZID",keytype="ENSEMBL",multiVals="first")
-
-# Calculate pathway enrichment
-enrichment_data <- enrichPathway(gene = filtered_resFDR$EntrezID, pvalueCutoff = 0.05, readable = TRUE)
-
-# Generate enrichment map
-enrichment_plot <- emapplot(enrichment_data) +
-    scale_color_continuous(low = "#E62412", high = "#374AB3", trans = "reverse", labels = to_scientific) +
-    theme_void() +
-    theme(axis.text.y = element_blank(),
-          axis.title.y = element_blank(),
-          axis.text.x = element_blank(),
-          axis.title.x = element_blank(),
-          legend.position = "bottom",
-          legend.direction = "horizontal",
-          legend.text.align = 0)
-
-# Modify legend
-enrichment_plot <- enrichment_plot + guides(colour = "colorbar", size = "legend")
-enrichment_plot <- enrichment_plot + guides(size = guide_legend(title = "Gene count"))
-enrichment_plot <- enrichment_plot + guides(color = guide_colorbar(title = "P adjusted"))
-
-# Draw plot
-enrichment_plot
 
 
 
