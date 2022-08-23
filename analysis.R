@@ -1,17 +1,18 @@
-# Load required libraries
+# Load required packages
+
 #Cran
-library(ggplot2)
-library(RColorBrewer)
-library(circlize)
+library("ggplot2")
+library("RColorBrewer")
+library("circlize")
 # Bioconductor
-library(DESeq2)
-library(apeglm)
-library(AnnotationDbi)
-library(org.Hs.eg.db)
+library("DESeq2")
+library("apeglm")
+library("AnnotationDbi")
+library("org.Hs.eg.db")
 #Github
-library(ComplexHeatmap)
-library(EnhancedVolcano)
-# library(ReactomePA)
+library("ComplexHeatmap")
+library("EnhancedVolcano")
+
 
 # Set working directory (make sure to change this to where you cloned the repo)
 setwd("GeneExpressionWorkshopRMed2022")
