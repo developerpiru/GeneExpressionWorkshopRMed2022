@@ -26,8 +26,8 @@ read_counts <- read.csv("data/ProstateCancer_DMSO_SP2509_LSD1i_readcounts.csv")
 sampleInfo <- read.csv("data/ProstateCancer_sampleInfo.csv")
 
 # Inspect the data
-head(read_counts)
-head(sampleInfo)
+View(read_counts)
+View(sampleInfo)
 
 # Set read counts rownames to gene names and drop gene_id column (we don't need it)
 rownames(read_counts) <- read_counts$gene_id
@@ -61,17 +61,19 @@ control_factor <- "DMSO"
 treatment_factor <- "SP2509"
 
 # Construct a DESeqDataSet (dds) using the read count table, sample info table, and specify the reference condition
-dds <- DESeqDataSetFromMatrix(countData = read_counts, colData = sampleInfo, design = ~ condition)
+dds <- DESeqDataSetFromMatrix(countData = read_counts, 
+                              colData = sampleInfo, 
+                              design = ~ condition)
 
 # Let's view the dds object
-dds
+View(dds)
 
 # For now, we only have one assay, which are the raw reads
 assays(dds)
 
 # The raw read counts for each sample and gene can be obtained by the counts() method
-head(counts(dds))
-head(assays(dds)$counts)
+View(counts(dds))
+View(assays(dds)$counts)
 
 # Every column that was present in the sample info table (```sampleInfo```) is also built into the dds object as metadata columns.
 # We can access it using the column name as shown. This will be handy later on to compare gene expression data with respect to clinical attributes.
@@ -94,9 +96,21 @@ dds <- DESeq(dds)
 # View the dds object
 dds
 
+# Checking the DESeq Analysis by visualizing
+# Dispersion Estimate Plot
+plotDispEsts(dds,ylim=c(1e-6, 1e2))
+
 # Extract the results from the dds object. This is done using the results() method
 res <- results(dds, contrast=c("condition", treatment_factor, control_factor))
-head(res)
+
+# View it better as a dataframe
+DF_res <- data.frame(res@listData)
+rownames(DF_res) <- rownames(dds)
+
+# MA plot Visualization
+plotMA(res, ylim=c(-3,3))
+
+summary (res)
 
 # Perform log fold change(LFC) shrinkage using ```apeglm```. This looks at large LFC that are not due to 
 # low read counts and uses that to inform a prior distribution. Genes that have large LFC but high statistical info
@@ -104,6 +118,10 @@ head(res)
 # and also for comparing gene expression data from one independent experiment with other independent experiments.
 LFC_coef <- paste0("condition_", treatment_factor, "_vs_", control_factor)
 resLFC <- lfcShrink(dds, coef=LFC_coef, type="apeglm")
+
+#Visualize Shrunk data
+plotMA(resLFC, ylim=c(-3,3))
+
 
 # Filter results based on a False Discovery Rate (FDR) cut off.
 # Set the FDR (false discovery rate) percentage value expressed as a decimal.
@@ -127,10 +145,16 @@ resFDR <- resFDR[,c(7,1:6)]
 head(res)
 head(resFDR)
 
+# View it better as a dataframe
+DF_res <- data.frame(res@listData)
+rownames(DF_res) <- rownames(dds)
+
 # Let's make a separate table of ENSEMBL symbols mapped to gene ids. This will be useful later in downstream applications
 geneList <- as.data.frame(res)
 geneList <- subset(geneList, select = c(GeneID)) # Keep only the GeneID column; drop everything else
 geneList$ENSEMBL <- rownames(geneList) # Save ENSEMBL IDs in new ENSEMBL column
+
+View(geneList)
 
 # Save results tables
 write.csv(as.data.frame(res), file='output/results.csv')
@@ -145,7 +169,7 @@ vst <- varianceStabilizingTransformation(dds, blind = FALSE)
 
 # View the vst object
 vst
-head(assay(vst))
+View(assay(vst))
 
 
 
@@ -209,7 +233,7 @@ dev.off()
 ### Draw gene expression heatmap using ComplexHeatmap ###
 
 # Re-order the vst data from most differentially expressed to least differentially expressed.
-# Let's pull out only the top 20 differentially expressed genes.
+# Let's pull out only the top 30 differentially expressed genes.
 genestokeep <- order(rowVars(assay(vst)), decreasing = TRUE)[1:30]
 heatmap_data <- as.data.frame(assay(vst)[genestokeep,])
 head(heatmap_data)
@@ -232,6 +256,8 @@ heatmap_data <- subset(heatmap_data, select = -c(GeneID))
 # Scale the data across all genes so differences among samples are not overpowered by strong outliers.
 heatmap_data2 = t(apply(heatmap_data, 1, function(x) {scale(x)}))
 colnames(heatmap_data2) = colnames(heatmap_data)
+#View(heatmap_data)
+#View(heatmap_data2)
 head(heatmap_data2)
 
 
